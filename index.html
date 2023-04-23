@@ -102,23 +102,26 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Stream流"><a href="#Stream流" class="headerlink" title="Stream流"></a>Stream流</h1><h3 id="一、获取Stream流"><a href="#一、获取Stream流" class="headerlink" title="一、获取Stream流"></a>一、获取Stream流</h3><ol>
+        <p>title: Stream流</p>
+<h1 id="Stream流"><a href="#Stream流" class="headerlink" title="Stream流"></a>Stream流</h1><h3 id="一、获取Stream流"><a href="#一、获取Stream流" class="headerlink" title="一、获取Stream流"></a>一、获取Stream流</h3><ol>
 <li><p>根据类型不同获取方法有4中</p>
 <ol>
 <li><p>单列集合如 List 和 Set  可以直接通过 .stream()获取</p>
 </li>
-<li><p>双列集合如 Map 需要先转化为单例再获取 如     <code>map.keySet().stream()</code></p>
+<li><p>双列集合如 Map 需要先转化为单例再获取 如 	<code>map.keySet().stream()</code></p>
 </li>
 <li><p>数组 直接通过工具方法获取 如   <code> Arrays.stream(数组名)</code></p>
 </li>
 <li><p>零散数据如 {1,2,3,4,5,6} , 可以通过Stream获取 例如 <code>Stream.of(&#123;1,2,3,4,5,6&#125;)</code></p>
 <pre><code>        1. 如果是引用类型例如String 可以将其先转化为数组再进行第三步操作
 </code></pre>
-<p>​        </p>
+<p>​</p>
 </li>
 </ol>
 </li>
 </ol>
+<pre><code>	
+</code></pre>
 <h3 id="二、Stream流的常用中间方法"><a href="#二、Stream流的常用中间方法" class="headerlink" title="二、Stream流的常用中间方法"></a>二、Stream流的常用中间方法</h3><p><img src="E:\Blogger\blog\图片资源\image-20230423180048015.png" alt="image-20230423180048015"></p>
 <p>concat 合并流时 如果两个流的类型不一致 那么合并出来的流的类型是他们共同的父类，子类方法将无法使用</p>
 <h3 id="三、Stream流的终结方法"><a href="#三、Stream流的终结方法" class="headerlink" title="三、Stream流的终结方法"></a>三、Stream流的终结方法</h3><p><img src="E:\Blogger\blog\图片资源\image-20230423181203780.png" alt="image-20230423181203780"></p>
