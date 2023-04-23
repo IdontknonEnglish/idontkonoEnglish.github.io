@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Stream流一、获取Stream流 根据类型不同获取方法有4中  单列集合如 List 和 Set  可以直接通过 .stream()获取  双列集合如 Map 需要先转化为单例再获取 如     map.keySet().stream()  数组 直接通过工具方法获取 如    Arrays.stream(数组名)  零散数据如 {1,2,3,4,5,6} , 可以通过Stream获取 例如">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2023/04/23/Stream%E6%B5%81/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Stream流一、获取Stream流 根据类型不同获取方法有4中  单列集合如 List 和 Set  可以直接通过 .stream()获取  双列集合如 Map 需要先转化为单例再获取 如     map.keySet().stream()  数组 直接通过工具方法获取 如    Arrays.stream(数组名)  零散数据如 {1,2,3,4,5,6} , 可以通过Stream获取 例如">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="e:/Blogger/blog/图片资源/image-20230423180048015.png">
+<meta property="og:image" content="e:/Blogger/blog/图片资源/image-20230423181203780.png">
+<meta property="og:image" content="e:/Blogger/blog/图片资源/image-20230423184725606.png">
+<meta property="article:published_time" content="2023-04-23T10:49:58.358Z">
+<meta property="article:modified_time" content="2023-04-23T10:49:58.359Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="e:/Blogger/blog/图片资源/image-20230423180048015.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Stream流" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2023/04/23/Stream%E6%B5%81/" class="article-date">
+  <time datetime="2023-04-23T10:49:58.358Z" itemprop="datePublished">2023-04-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Stream流"><a href="#Stream流" class="headerlink" title="Stream流"></a>Stream流</h1><h3 id="一、获取Stream流"><a href="#一、获取Stream流" class="headerlink" title="一、获取Stream流"></a>一、获取Stream流</h3><ol>
+<li><p>根据类型不同获取方法有4中</p>
+<ol>
+<li><p>单列集合如 List 和 Set  可以直接通过 .stream()获取</p>
+</li>
+<li><p>双列集合如 Map 需要先转化为单例再获取 如     <code>map.keySet().stream()</code></p>
+</li>
+<li><p>数组 直接通过工具方法获取 如   <code> Arrays.stream(数组名)</code></p>
+</li>
+<li><p>零散数据如 {1,2,3,4,5,6} , 可以通过Stream获取 例如 <code>Stream.of(&#123;1,2,3,4,5,6&#125;)</code></p>
+<pre><code>        1. 如果是引用类型例如String 可以将其先转化为数组再进行第三步操作
+</code></pre>
+<p>​        </p>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="二、Stream流的常用中间方法"><a href="#二、Stream流的常用中间方法" class="headerlink" title="二、Stream流的常用中间方法"></a>二、Stream流的常用中间方法</h3><p><img src="E:\Blogger\blog\图片资源\image-20230423180048015.png" alt="image-20230423180048015"></p>
+<p>concat 合并流时 如果两个流的类型不一致 那么合并出来的流的类型是他们共同的父类，子类方法将无法使用</p>
+<h3 id="三、Stream流的终结方法"><a href="#三、Stream流的终结方法" class="headerlink" title="三、Stream流的终结方法"></a>三、Stream流的终结方法</h3><p><img src="E:\Blogger\blog\图片资源\image-20230423181203780.png" alt="image-20230423181203780"></p>
+<ol>
+<li>toArray()的参数是数组的长度 </li>
+<li>toArray()的底层是遍历流里面的元素，将他们保存到数组中</li>
+<li>toArray()的返回值是一个装着流里面所有数据的数组</li>
+</ol>
+<h5 id="重点-Collect"><a href="#重点-Collect" class="headerlink" title="重点 Collect"></a>重点 Collect</h5><p><img src="E:\Blogger\blog\图片资源\image-20230423184725606.png" alt="image-20230423184725606"></p>
+<p>Collectors.toList和 Collectors.toSet 都比较简单直接用就行</p>
+<p>但是map 比较复杂 需要设置 key 的获取规则 和 value 的获取规则</p>
+<p>这里只展示通过 lambda 表达式设置规则的方法</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/04/23/Stream%E6%B5%81/" data-id="clgtagyu00003jgw8f1pa8ar9" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2023/04/20/SSM-%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">SSM 依赖注入的三种方式</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/04/23/Stream%E6%B5%81/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/20/SSM-%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F/">SSM 依赖注入的三种方式</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/19/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E6%96%87/">我的第一篇博文</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/19/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

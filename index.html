@@ -64,6 +64,102 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Stream流" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2023/04/23/Stream%E6%B5%81/" class="article-date">
+  <time datetime="2023-04-23T10:49:58.358Z" itemprop="datePublished">2023-04-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Stream流"><a href="#Stream流" class="headerlink" title="Stream流"></a>Stream流</h1><h3 id="一、获取Stream流"><a href="#一、获取Stream流" class="headerlink" title="一、获取Stream流"></a>一、获取Stream流</h3><ol>
+<li><p>根据类型不同获取方法有4中</p>
+<ol>
+<li><p>单列集合如 List 和 Set  可以直接通过 .stream()获取</p>
+</li>
+<li><p>双列集合如 Map 需要先转化为单例再获取 如     <code>map.keySet().stream()</code></p>
+</li>
+<li><p>数组 直接通过工具方法获取 如   <code> Arrays.stream(数组名)</code></p>
+</li>
+<li><p>零散数据如 {1,2,3,4,5,6} , 可以通过Stream获取 例如 <code>Stream.of(&#123;1,2,3,4,5,6&#125;)</code></p>
+<pre><code>        1. 如果是引用类型例如String 可以将其先转化为数组再进行第三步操作
+</code></pre>
+<p>​        </p>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="二、Stream流的常用中间方法"><a href="#二、Stream流的常用中间方法" class="headerlink" title="二、Stream流的常用中间方法"></a>二、Stream流的常用中间方法</h3><p><img src="E:\Blogger\blog\图片资源\image-20230423180048015.png" alt="image-20230423180048015"></p>
+<p>concat 合并流时 如果两个流的类型不一致 那么合并出来的流的类型是他们共同的父类，子类方法将无法使用</p>
+<h3 id="三、Stream流的终结方法"><a href="#三、Stream流的终结方法" class="headerlink" title="三、Stream流的终结方法"></a>三、Stream流的终结方法</h3><p><img src="E:\Blogger\blog\图片资源\image-20230423181203780.png" alt="image-20230423181203780"></p>
+<ol>
+<li>toArray()的参数是数组的长度 </li>
+<li>toArray()的底层是遍历流里面的元素，将他们保存到数组中</li>
+<li>toArray()的返回值是一个装着流里面所有数据的数组</li>
+</ol>
+<h5 id="重点-Collect"><a href="#重点-Collect" class="headerlink" title="重点 Collect"></a>重点 Collect</h5><p><img src="E:\Blogger\blog\图片资源\image-20230423184725606.png" alt="image-20230423184725606"></p>
+<p>Collectors.toList和 Collectors.toSet 都比较简单直接用就行</p>
+<p>但是map 比较复杂 需要设置 key 的获取规则 和 value 的获取规则</p>
+<p>这里只展示通过 lambda 表达式设置规则的方法</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/04/23/Stream%E6%B5%81/" data-id="clgtagyu00003jgw8f1pa8ar9" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-SSM-依赖注入的三种方式" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2023/04/20/SSM-%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F/" class="article-date">
+  <time datetime="2023-04-20T01:17:12.000Z" itemprop="datePublished">2023-04-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2023/04/20/SSM-%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F/">SSM 依赖注入的三种方式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>依赖注入的三种方式分别是，set注入，构造器注入，注解注入，同时注入又分为基本类型注入和对象注入以及集合注入</p>
+<hr>
+<h2 id="Set注入"><a href="#Set注入" class="headerlink" title="Set注入"></a>Set注入</h2><hr>
+<hr>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/04/20/SSM-%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F/" data-id="clgtagyty0002jgw83hy62tsz" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-我的第一篇博文" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2023/04/19/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E6%96%87/" class="article-date">
@@ -108,43 +204,7 @@ deploy:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/04/19/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E6%96%87/" data-id="clgnpjbc90002ikw856n1ca6c" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Hello-World-0" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2023/04/19/Hello-World-0/" class="article-date">
-  <time datetime="2023-04-19T13:02:47.000Z" itemprop="datePublished">2023-04-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/04/19/Hello-World-0/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/04/19/Hello-World-0/" data-id="clgnpjbc20000ikw8ebvs73ts" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/04/19/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E6%96%87/" data-id="clgtagyu30004jgw87sj8c6xd" class="article-share-link">Share</a>
       
       
     </footer>
@@ -193,7 +253,7 @@ deploy:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/04/19/hello-world/" data-id="clgnpjbc70001ikw856fy1jl1" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/04/19/hello-world/" data-id="clgtagyud0006jgw85nboh6pu" class="article-share-link">Share</a>
       
       
     </footer>
@@ -234,11 +294,15 @@ deploy:
       <ul>
         
           <li>
-            <a href="/2023/04/19/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E6%96%87/">我的第一篇博文</a>
+            <a href="/2023/04/23/Stream%E6%B5%81/">(no title)</a>
           </li>
         
           <li>
-            <a href="/2023/04/19/Hello-World-0/">Hello World</a>
+            <a href="/2023/04/20/SSM-%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F/">SSM 依赖注入的三种方式</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/19/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E6%96%87/">我的第一篇博文</a>
           </li>
         
           <li>
