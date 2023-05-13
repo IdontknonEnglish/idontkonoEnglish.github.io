@@ -64,10 +64,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-测试" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-缓存穿透、缓存雪崩、缓存击穿" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2023/04/23/%E6%B5%8B%E8%AF%95/" class="article-date">
-  <time datetime="2023-04-23T14:37:01.007Z" itemprop="datePublished">2023-04-23</time>
+    <a href="/2023/05/10/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%E3%80%81%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9%E3%80%81%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF/" class="article-date">
+  <time datetime="2023-05-10T08:51:44.366Z" itemprop="datePublished">2023-05-10</time>
 </a>
     
   </div>
@@ -76,78 +76,86 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/04/23/%E6%B5%8B%E8%AF%95/" data-id="clgtikxpu0000ysw8herk6ke1" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Stream流" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2023/04/23/Stream%E6%B5%81/" class="article-date">
-  <time datetime="2023-04-23T10:49:58.358Z" itemprop="datePublished">2023-04-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/04/23/Stream%E6%B5%81/">Stream流</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Stream流"><a href="#Stream流" class="headerlink" title="Stream流"></a>Stream流</h1><h3 id="一、获取Stream流"><a href="#一、获取Stream流" class="headerlink" title="一、获取Stream流"></a>一、获取Stream流</h3><ol>
-<li><p>根据类型不同获取方法有4中</p>
-<ol>
-<li><p>单列集合如 List 和 Set  可以直接通过 .stream()获取</p>
-</li>
-<li><p>双列集合如 Map 需要先转化为单例再获取 如 	<code>map.keySet().stream()</code></p>
-</li>
-<li><p>数组 直接通过工具方法获取 如   <code> Arrays.stream(数组名)</code></p>
-</li>
-<li><p>零散数据如 {1,2,3,4,5,6} , 可以通过Stream获取 例如 <code>Stream.of(&#123;1,2,3,4,5,6&#125;)</code></p>
-<pre><code>        1. 如果是引用类型例如String 可以将其先转化为数组再进行第三步操作
+        <h1 id="缓存穿透、缓存雪崩、缓存击穿"><a href="#缓存穿透、缓存雪崩、缓存击穿" class="headerlink" title="缓存穿透、缓存雪崩、缓存击穿"></a>缓存穿透、缓存雪崩、缓存击穿</h1><h2 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a>缓存穿透</h2><p>​	1. 出现的原因</p>
+<p>​					客户端请求的数据在缓存和数据库中都不存在，这样缓存永远都不会生效，请求永远都打到数据库上</p>
+<ol start="2">
+<li><p>解决方案</p>
+<pre><code>     1. 缓存空对象 ：
+           1. 优点：实现简单，维护方便
+                  2. 缺点
+                      额外的内存消耗
+                      可能造成短期不一致
+                   实现方法
+                       当客户端请求的数据在数据库中不存在，在redis缓存数据的key，value是空对象。
+                       为了防止缓存中出现大量空对象垃圾，可以给空对象设置一个时间较短的TTL（生命周期）
+                     . ![image-20230510171447855](E:\Blogger\blog\source\_posts\缓存穿透、缓存雪崩、缓存击穿.assets\image-20230510171447855.png)
+       布隆过滤
+                优点：内存占用较小，没有多余的key
+                缺点：
+                        实现复杂
+                        存在误判的可能
+                实现方法
+                        在客户端与redis中间设置一个布隆过滤器
+                        将数据库中所有数据通过一个算法标识到布隆过滤器中（一大堆01字符串）
+                        如果在布隆过滤器中都匹配不成功那数据库中一定没有，直接拒绝。
+                        如果匹配成功则正常的去查询，先redis 再 数据库（因为算法可能会出现匹配成功但是数据库中并存在该数据）
+ ![image-20230510171504350](E:\Blogger\blog\source\_posts\缓存穿透、缓存雪崩、缓存击穿.assets\image-20230510171504350.png)
 </code></pre>
-<p>​</p>
+<h2 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a>缓存雪崩</h2><ol>
+<li>出现的原因 ：在同一时间段，大量的缓存key同时失效，或者redis服务器宕机，导致大量请求到达数据库，带来巨大压力</li>
+<li>解决方案<ol>
+<li>给不同的key的TTL设置随机值，(避免大量缓存key同时失效)</li>
+<li>利用redis集群提高服务的可用性 (一个宕机了还有其他的可以顶上)</li>
+<li>给缓存业务添加降级限流策略  (服务器出现宕机，为了缓解压力 降低当前接收请求的力度)</li>
+<li>给业务添加多级缓存</li>
+</ol>
+</li>
+</ol>
+<h2 id="缓存击穿（也叫做热点Key问题）"><a href="#缓存击穿（也叫做热点Key问题）" class="headerlink" title="缓存击穿（也叫做热点Key问题）"></a>缓存击穿（也叫做热点Key问题）</h2><ol>
+<li><p>出现的原因：</p>
+<p>  就是一个被高并发访问并且缓存重建业务比较复杂的key突然失效了，无数的请求访问会瞬间给数据库带来巨大的冲击</p>
+<p>  解决方案</p>
+<p>  ​	互斥锁</p>
+<p>  ​		优点</p>
+<p>  ​			没有额外的内存消耗</p>
+<p>  ​			保持一致性</p>
+<p>  ​			实现简单</p>
+<p>  ​		缺点</p>
+<p>  ​			线程需要等待，性能受影响</p>
+<p>  ​			可能会有死锁风险</p>
+<p>  ​		实现方法</p>
+<p>  ​			查询缓存未命中时，去获取互斥锁，锁住key (锁是通过redis中的String类型的)</p>
+<p>  ​			查询数据库重建缓存</p>
+<p>  ​			写入缓存</p>
+<p>  ​			释放锁</p>
+<p>  ​			当互斥锁获取不到时（已经有人在处理了） </p>
+<p>  ​			等待一段时间，再重新执行一遍查询流程，等到获取互斥锁的那个线程写入缓存后，就可以命中了</p>
+<p>  <img src="E:\Blogger\blog\source_posts\缓存穿透、缓存雪崩、缓存击穿.assets\image-20230510200120800.png" alt="image-20230510200120800"></p>
+<ol start="2">
+<li><p>逻辑过期</p>
+<p>优点</p>
+<p>​	线程无需等待，性能较好</p>
+<p>缺点</p>
+<p>​	不保证一致性</p>
+<p>​	有额外内存消耗</p>
+<p>​	实现复杂</p>
+<p>实现方法</p>
+<p>将热点key的生命周期设置为逻辑删除</p>
+<p>当有请求访问热点key发现他已经过期时</p>
+<p>获取互斥锁，开启一个新的线程让新线程去实现重建缓存数据</p>
+<p>原线程不等待重建缓存数据，直接返回过期的数据</p>
+<p><img src="E:\Blogger\blog\source_posts\缓存穿透、缓存雪崩、缓存击穿.assets\image-20230510200709748.png" alt="image-20230510200709748"></p>
 </li>
 </ol>
 </li>
 </ol>
-<pre><code>	
-</code></pre>
-<h3 id="二、Stream流的常用中间方法"><a href="#二、Stream流的常用中间方法" class="headerlink" title="二、Stream流的常用中间方法"></a>二、Stream流的常用中间方法</h3><p><img src="E:\Blogger\blog\图片资源\image-20230423180048015.png" alt="image-20230423180048015"></p>
-<p>concat 合并流时 如果两个流的类型不一致 那么合并出来的流的类型是他们共同的父类，子类方法将无法使用</p>
-<h3 id="三、Stream流的终结方法"><a href="#三、Stream流的终结方法" class="headerlink" title="三、Stream流的终结方法"></a>三、Stream流的终结方法</h3><p><img src="E:\Blogger\blog\图片资源\image-20230423181203780.png" alt="image-20230423181203780"></p>
-<ol>
-<li>toArray()的参数是数组的长度 </li>
-<li>toArray()的底层是遍历流里面的元素，将他们保存到数组中</li>
-<li>toArray()的返回值是一个装着流里面所有数据的数组</li>
+</li>
 </ol>
-<h5 id="重点-Collect"><a href="#重点-Collect" class="headerlink" title="重点 Collect"></a>重点 Collect</h5><p><img src="E:\Blogger\blog\图片资源\image-20230423184725606.png" alt="image-20230423184725606"></p>
-<p>Collectors.toList和 Collectors.toSet 都比较简单直接用就行</p>
-<p>但是map 比较复杂 需要设置 key 的获取规则 和 value 的获取规则</p>
-<p>这里只展示通过 lambda 表达式设置规则的方法</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/04/23/Stream%E6%B5%81/" data-id="clgtagyu00003jgw8f1pa8ar9" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/05/10/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%E3%80%81%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9%E3%80%81%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF/" data-id="clhluf94f0006xsw8ay843wi2" class="article-share-link">Share</a>
       
       
     </footer>
@@ -157,38 +165,23 @@
 
 
   
-    <article id="post-SSM-依赖注入的三种方式" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-StrUtil 和 Beanutils 常用方法" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2023/04/20/SSM-%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F/" class="article-date">
-  <time datetime="2023-04-20T01:17:12.000Z" itemprop="datePublished">2023-04-20</time>
+    <a href="/2023/05/09/StrUtil%20%E5%92%8C%20Beanutils%20%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/" class="article-date">
+  <time datetime="2023-05-09T02:20:41.947Z" itemprop="datePublished">2023-05-09</time>
 </a>
     
   </div>
   <div class="article-inner">
     
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/04/20/SSM-%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F/">SSM 依赖注入的三种方式</a>
-    </h1>
-  
-
-      </header>
-    
     <div class="article-entry" itemprop="articleBody">
       
-        <hr>
-<p>依赖注入的三种方式分别是，set注入，构造器注入，注解注入，同时注入又分为基本类型注入和对象注入以及集合注入</p>
-<hr>
-<h2 id="Set注入"><a href="#Set注入" class="headerlink" title="Set注入"></a>Set注入</h2><hr>
-<hr>
-
+        <h1 id="StrUtil-、JSONUtil-和-Beanutils-的常用方法"><a href="#StrUtil-、JSONUtil-和-Beanutils-的常用方法" class="headerlink" title="StrUtil 、JSONUtil 和 Beanutils 的常用方法"></a>StrUtil 、JSONUtil 和 Beanutils 的常用方法</h1>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/04/20/SSM-%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F/" data-id="clgtagyty0002jgw83hy62tsz" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/05/09/StrUtil%20%E5%92%8C%20Beanutils%20%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/" data-id="clhluf94b0002xsw8cdm39yjl" class="article-share-link">Share</a>
       
       
     </footer>
@@ -198,51 +191,237 @@
 
 
   
-    <article id="post-我的第一篇博文" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-@Resource 和 @Autowired 的区别" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2023/04/19/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E6%96%87/" class="article-date">
-  <time datetime="2023-04-19T13:04:27.000Z" itemprop="datePublished">2023-04-19</time>
+    <a href="/2023/05/09/@Resource%20%E5%92%8C%20@Autowired%20%E7%9A%84%E5%8C%BA%E5%88%AB/" class="article-date">
+  <time datetime="2023-05-09T02:04:37.855Z" itemprop="datePublished">2023-05-09</time>
 </a>
     
   </div>
   <div class="article-inner">
     
     
-      <header class="article-header">
-        
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Resource-和-Autowired-的区别"><a href="#Resource-和-Autowired-的区别" class="headerlink" title="@Resource 和 @Autowired 的区别"></a>@Resource 和 @Autowired 的区别</h1>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/05/09/@Resource%20%E5%92%8C%20@Autowired%20%E7%9A%84%E5%8C%BA%E5%88%AB/" data-id="clhluf9490001xsw8evkpatqn" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/04/19/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E6%96%87/">我的第一篇博文</a>
-    </h1>
-  
+</article>
 
-      </header>
+
+  
+    <article id="post-页面置换算法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2023/05/09/%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95/" class="article-date">
+  <time datetime="2023-05-09T01:14:51.447Z" itemprop="datePublished">2023-05-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="博客搭建教程"><a href="#博客搭建教程" class="headerlink" title="博客搭建教程"></a>博客搭建教程</h2><hr>
-<pre><code>#安装Nodejs
+        <h1 id="页面置换算法"><a href="#页面置换算法" class="headerlink" title="页面置换算法"></a>页面置换算法</h1>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/05/09/%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95/" data-id="clhluf94h0008xsw8gdtsb2xs" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ER图" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2023/05/09/ER%E5%9B%BE/" class="article-date">
+  <time datetime="2023-05-09T00:37:00.624Z" itemprop="datePublished">2023-05-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="ER图"><a href="#ER图" class="headerlink" title="ER图"></a>ER图</h1>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/05/09/ER%E5%9B%BE/" data-id="clhluf94d0003xsw8076f42g7" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-设计模式" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2023/05/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="article-date">
+  <time datetime="2023-05-08T12:57:19.695Z" itemprop="datePublished">2023-05-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h1><p><img src="C:\Users\86187\AppData\Roaming\Typora\typora-user-images\image-20230508205610283.png" alt="image-20230508205610283"></p>
+<p>工厂方法</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/05/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" data-id="clhluf94g0007xsw83iiahdog" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-极限编程（XP）的12个最佳实践" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2023/05/06/%E6%9E%81%E9%99%90%E7%BC%96%E7%A8%8B%EF%BC%88XP%EF%BC%89%E7%9A%8412%E4%B8%AA%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" class="article-date">
+  <time datetime="2023-05-06T03:12:42.384Z" itemprop="datePublished">2023-05-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="极限编程（XP）的12个最佳实践"><a href="#极限编程（XP）的12个最佳实践" class="headerlink" title="极限编程（XP）的12个最佳实践"></a>极限编程（XP）的12个最佳实践</h1><p>**1.现场客户 ( On-site Customer )<br>**　　XP： 要求至少有一名实际的客户代表在整个项目开发周期在现场负责确定需求、回答团队问题以及编写功能验收测试。<br>　　评述：现场用户可以从一定程度上解决项目团队与客户沟通不畅的问题，但是对于国内用户来讲，目前阶段还不能保证有一定技术层次的客户常驻开发现场。解决问题的方法有两种：一是可以采用在客户那里现场开发的方式；二是采用有效的沟通方式。<br>　　项目：首先，我们在项目合同签署前，向客户进行项目开发方法论的介绍，使得客户清楚项目开发的阶段、各个阶段要发布的成果以及需要客户提供的支持等；其次，由项目经理每周向客户汇报项目的进展情况，提供目前发布版本的位置，并提示客户系统相应的反馈与支持。<br>**2.代码规范 ( Code Standards )<br>**　　XP： 强调通过指定严格的代码规范来进行沟通，尽可能减少不必要的文档。<br>　　评述： XP对于代码规范的实践，具有双重含义：一是希望通过建立统一的代码规范，来加强开发人员之间的沟通，同时为代码走查提供了一定的标准；二是希望减少项目开发过程中的文档，XP认为代码是最好的文档。<br>对于目前国内的大多数项目团队来说，建立有效的代码规范，加强团队内代码的统一性，是理所当然的；但是，认为代码可以代替文档却是不可取的，因为代码的可读性与规范的文档相比合适由一定的差距。<br>同时，如果没有统一的代码规范，代码全体拥有就无从谈起。<br>　　项目： 在项目实施初期，就由项目的技术经理建立代码规范，并将其作为代码审查的标准。<br>**3.每周40小时工作制 ( 40-hour Week )<br>**　　XP： 要求项目团队人员每周工作时间不能超过40小时，加班不得连续超过两周，否则反而会影响生产率。<br>　　评述： 该实践充分体现了XP的”以人为本”的原则。但是，如果要真正的实施下去，对于项目进度和工作量合理安排的要求就比较高。<br>　　项目： 由于项目的工期比较充裕，因此，很幸运的是我们并没有违反该实践。<br>**4.计划博弈 ( Planning Game )<br>**　　XP： 要求结合项目进展和技术情况，确定下一阶段要开发与发布的系统范围。<br>　　评述： 项目的计划在建立起来以后，需要根据项目的进展来进行调整，一成不变的计划是不存在。因此，项目团队需要控制风险、预见变化，从而制定有效、可行的项目计划。<br>　　项目： 在系统实现前，我们首先按照需求的优先级做了迭代周期的划分，将高风险的需求优先实现；同时，项目团队每天早晨参加一个15分钟的项目会议，确定当天以及目前迭代周期中每个成员要完成的任务。<br>**5.系统隐喻 ( System Metaphor )<br>**　　XP： 通过隐喻来描述系统如何运作、新的功能以何种方式加入到系统。它通常包含了一些可以参照和比较的类和设计模式。XP不需要事先进行详细的架构设计。<br>　　评述： XP在系统实现初期不需要进行详细的架构设计，而是在迭代周期中不断的细化架构。对于小型的系统或者架构设计的分析会推迟整个项目的计划的情况下，逐步细化系统架构倒是可以的；但是，对于大型系统或者是希望采用新架构的系统，就需要在项目初期进行相信的系统架构设计，并在第一个迭代周期中进行验证，同时在后续迭代周期中逐步进行细化。<br>　　项目： 开发团队在设计初期，决定参照STRUTS框架，结合项目的情况，构建了针对工作流程处理的项目框架。首先，团队决定在第一个迭代周期实现配件申请的工作流程，在实际项目开发中验证了基本的程序框架；而后，又在其它迭代周期中，对框架逐渐精化。<br><strong>6.简单设计 ( Simple Design )</strong><br>　　XP： 认为代码的设计应该尽可能的简单，只要满足当前功能的要求，不多也不少。<br>　　评述： 传统的软件开发过程，对于设计是自顶而下的，强调设计先行，在代码开始编写之前，要有一个完美的设计模型。它的前提是需求不变化，或者很少变化；而XP认为需求是会经常变化的，因此设计不能一蹴而就，而应该是一项持续进行的过程。<br>　　Kent Beck认为对于XP来说，简单设计应该满足以下几个原则：<br>　　A.成功执行所有的测试；<br>　　B.不包含重复的代码；<br>　　C.向所有的开发人员清晰地描述编码以及其内在关系；<br>　　D.尽可能包含最少的类与方法。<br>　　对于国内大部分的软件开发组织来说，应该首先确定一个灵活的系统架构，而后在每个迭代周期的设计阶段可以采用XP的简单设计原则，将设计进行到底。<br>　　项目： 在项目的系统架构经过验证后的迭代周期内，我们始终坚持简单设计的原则，并按照Kent Beck的四项原则来进行有效的验证。对于新的迭代周期中出现需要修改既有设计与代码的情况，首先对原有系统进行”代码重构”，而后再增加新的功能。<br>**7.测试驱动 ( Test-driven )<br>**　　XP： 强调”测试先行”。在编码开始之前，首先将测试写好，而后再进行编码，直至所有的测试都得以通过。<br>　　评述： RUP与XP对测试都是非常的重视，只是两者对于测试在整个项目开发周期内首先出现的位置处理不同。XP是一项测试驱动的软件开发过程，它认为测试先行使得开发人员对自己的代码有足够的信心，同时也有勇气进行代码重构。测试应该实现一定的自动化，同时能够清晰的给出测试成功或者失败的结果。在这方面，xUnit测试框架做了很多的工作，因此很多实施XP的团队，都采用它们进行测试工作。<br>　　项目： 我们在项目初期就对JUNIT进行了一定的研究工作，在项目编码中，采用JBUILDER6提供的测试框架进行测试类的编写。但是，不是对所有的方法与用例都编写，而只是针对关键方法类、重要业务逻辑处理类等进行。详细的关于JUNIT测试框架的使用，请参见我的同事撰写的另一篇文章(<a target="_blank" rel="noopener" href="http://www-900.ibm.com/developerWorks/cn/java/l-junit/index.shtml">http://www-900.ibm.com/developerWorks/cn/java/l-junit/index.shtml</a>)<br>**8.代码重构 ( Refactoring )<br>**　　XP： 强调代码重构在其中的作用，认为开发人员应该经常进行重构，通常有两个关键点应该进行重构：对于一个功能实现和实现后。<br>　　评述： 代码重构是指在不改变系统行为的前提下，重新调整、优化系统的内部结构以减少复杂性、消除冗余、增加灵活性和提高性能。重构不是XP所特有的行为，在任何的开发过程中都可能并且应该发生。<br>在使用代码重构的时候要注意，不要过分的依赖重构，甚至轻视设计，否则，对于大中型的系统而言，将设计推迟或者干脆不作设计，会造成一场灾难。<br>　　项目： 我们在项目中将JREFACTORY工具部署到JBuilder中进行代码的重构，重构的时间是在各个迭代周期的前后。代码重构在项目中的作用是改善既有设计，而不是代替设计。<br>**9.成对编程 ( Pair Programming )<br>**　　XP： 认为在项目中采用成对编程比独自编程更加有效。成对编程是由两个开发人员在同一台电脑上共同编写解决同一问题的代码，通常一个人负责写编码，而另一个负责保证代码的正确性与可读性。<br>　　评述： 其实，成对编程是一种非正式的同级评审 ( Peer Review )。它要求成对编程的两个开发人员在性格和技能上应该相互匹配，目前在国内还不是十分适合推广。成对编程只是加强开发人员沟通与评审的一种方式，而非唯一的方式。具体的方式可以结合项目的情况进行。<br>　　项目： 我们在项目中并没有采用成对编程的实践，而是在项目实施的各个阶段，加强了走查以及同级评审的力度。需求获取、设计与分析都有多人参与，在成果提交后，交叉进行走查；而在编码阶段，开发人员之间也要在每个迭代周期后进行同时评审。<br><strong>10. 集体代码所有制（Collective Ownership）</strong></p>
+<p>　　XP： 认为开发小组的每个成员都有更改代码的权利，所有的人对于全部代码负责。<br>　　评论： 代码全体拥有并不意味者开发人员可以互相推委责任，而是强调所有的人都要负责。如果一个开发人员的代码有错误，另外一个开发人员也可以进行BUG的修复。<br>在目前，国内的软件开发组织，可以在一定程度上实施该实践，但是同时需要注意一定要有严格的代码控制管理。<br>　　项目： 我们在项目开发初期，首先向开发团队进行”代码全体拥有”的教育，同时要求开发人员不仅要了解系统的架构、自己的代码，同时也要了解其它开发人员的工作以及代码情况。这个实践与同级评审有一定的互补作用，从而保证人员的变动不会对项目的进度造成很大的影响。<br>　　在项目执行中，有一个开发人员由于参加培训，缺席项目执行一周，由于实行了”代码全体拥有”的实践，其它的开发人员成功地分担了该成员的测试与开发任务，从而保证项目的如期交付。<br>**11.持续集成 ( Continuous Integration )<br>**　　XP： 提倡在一天中集成系统多次，而且随着需求的改变，要不断的进行回归测试。因为，这样可以使得团队保持一个较高的开发速度，同时避免了一次系统集成的恶梦。<br>　　评述： 持续集成也不是XP专有的最佳实践，著名的微软公司就有每日集成 ( Daily Build ) 的成功实践。但是，要注意的是，持续集成也需要良好的软件配置变更管理系统的有效支持。<br>　　项目： 使用VSS作为软件配置管理系统，坚持每天进行一次的系统集成，将已经完成的功能有效地结合起来，进行测试。<br>**12.小型发布 ( Small Release )<br>**　　XP： 强调在非常短的周期内以递增的方式发布新版本，从而可以很容易地估计每个迭代周期的进度，便于控制工作量和风险；同时，也可以及时处理用户的反馈。<br>　　评论： 小型发布突出体现了敏捷方法的优点。RUP强调迭代式的开发，对于系统的发布并没有作出过多的规定。用户在提交需求后，只有在部署时才能看到真正的系统，这样就不利于迅速获得用户的反馈。<br>如果能够保证测试先行、代码重构、持续集成等最佳实践，实现小型发布也不是一件困难的事情，在有条件的组织可以考虑使用。<br>　　项目： 项目在筹备阶段就配置了一台测试与发布服务器，在项目实施过程中，平均每两周（一个迭代周期结束后）进行一个小型发布；用户在发布后两个工作日内，向项目小组提交”用户接收测试报告”，由项目经理评估测试报告，将有效的BUG提交至Rational Clear Case，并分配给相应的开发人员。项目小组应该在下一个迭代周期结束前修复所有用户提交的问题。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/05/06/%E6%9E%81%E9%99%90%E7%BC%96%E7%A8%8B%EF%BC%88XP%EF%BC%89%E7%9A%8412%E4%B8%AA%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" data-id="clhluf94e0005xsw89guugntg" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2023/05/05/%E7%AC%94%E8%AE%B0/" class="article-date">
+  <time datetime="2023-05-05T06:25:57.073Z" itemprop="datePublished">2023-05-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h1><ol>
+<li><p>CPU会自动修改PC的内容，PC是程序计数器用来存放要执行的下一条指令</p>
+</li>
+<li><p>在微机系统中，BIOS（基本输入输出）保存在主板的ROM上</p>
+</li>
+<li><p>流水线的执行方式可以提高各部件的利用率，也可以同时执行多条指令，但是不能提高单挑指令的执行效率</p>
+</li>
+<li><p>非对称加密又称为公开密钥加密，而共享密钥加密指对称加密。常见的对称加密算法有DES,三重DES,RC-5,IDEA,AES.</p>
+</li>
+<li><p>MD5是一种摘要算法，算法的输出由4个32位的分组组成的，它们级联后形成128位的散列值</p>
+</li>
+<li><p>商标权可以通过续注延长拥有期限，达到无线期拥有，其他都是有限期的。</p>
+</li>
+<li><p>中华人民共和国著作权法和计算机软件保护条例是构成我国保护计算机软件著作权的两个基本法律文件</p>
+</li>
+<li><p>结构化分析的结果由一下几部分组成：一套分层的数据流图，一本数据词典，一组小说明(也称加工逻辑说明),补充材料</p>
+</li>
+<li><p>关键路径是最长的那一条路劲，松弛时间等于该条路径的最长时间 - 关键路径的时间</p>
+</li>
+<li><p>风险包括两个特征： 不确定性和损失性。不确定性指的是风险可能发生也可能不发生；损失是指如果风险发生就会产生恶性后果。重点看存不存在不确定性，已经发生的事情就不存在不确定性</p>
+</li>
+<li><p>CL0(未完成的)∶过程域未执行或未得到CL1中定义的所有目标。<br>CL1(已执行的)∶其共性目标是过程将可标识的输入工作产品转换成可标识的输出工作产品，以实现支持过程域的特定目标。<br>CL2(已管理的)︰其共性目标是集中于已管理的过程的制度化。根据组织级政策规定过程的运作将使用哪个过程，项目遵循已文档化的计划和过程描述，所有正在工作的人都有权使用足够的资源，所有工作任务和工作产品都被监控、控制和评审。<br>CL3(已定义级的)︰其共性目标集中于已定义的过程的制度化。过程是按照组织的裁剪指南从组织的标准过程中裁剪得到的，还必须收集过程资产和过程的度量，并用于将来对过程的改进。<br>CL4(定量管理的)︰其共性目标集中于可定量管理的过程的制度化。使用测量和质量保证来控制和改进过程域,建立和使用关于质量和过程执行的质量目标作为管理准则。<br>CL5(优化的)使用量化(统计学)手段改变和优化过程域，以满足客户的改变和持续改进计划中的过程域的功效。</p>
+</li>
+<li><p>ISO&#x2F;IEC 9126 软件质量模型</p>
+<p><img src="C:\Users\86187\AppData\Roaming\Typora\typora-user-images\image-20230505104633301.png" alt="image-20230505104633301"></p>
+</li>
+<li><p>7种内聚与7种耦合的类型及强弱关系</p>
+<p><img src="C:\Users\86187\AppData\Roaming\Typora\typora-user-images\image-20230505122805989.png" alt="image-20230505122805989"></p>
+</li>
+<li><p>数据库三大模式：外模式用来描述用户看到的或者使用的那部分数据(例如视图),模式用以描述整个数据库中的逻辑结构(例如基本表)，内模式对应物理级数据库(例如存储文件)</p>
+<h2 id="分布式数据库系统的透明性："><a href="#分布式数据库系统的透明性：" class="headerlink" title="分布式数据库系统的透明性："></a>分布式数据库系统的透明性：</h2><h3 id="分片透明"><a href="#分片透明" class="headerlink" title="分片透明:"></a>分片透明:</h3><p>​	是指用户不必关心数据是如何分片的，它们对数据的操作在全局关系上进行，即关心如何分片对用户是透明的，因此，当分片改变时应用程序可以不变。分片透明性是最高层次的透明性，如果用户能在全局关系一级操作，则数据如何分布，如何存储等细节自不必关心，其应用程序的编写与集中式数据库相同。</p>
+<h3 id="复制透明"><a href="#复制透明" class="headerlink" title="复制透明:"></a>复制透明:</h3><p>​	用户不用关心数据库在网络中各个节点的复制情况，被复制的数据的更新都由系统自动完成。在分布式数据库系统中，可以把一个场地的数据复制到其他场地存放，应用程序可以使用复制到本地的数据在本地完成分布式操作，避免通过网络传输数据，提高了系统的运行和查询效率。但是对于复制数据的更新操作，就要涉及到对所有复制数据的更新。</p>
+<h3 id="位置透明"><a href="#位置透明" class="headerlink" title="位置透明:"></a>位置透明:</h3><p>​	是指用户不必知道所操作的数据放在何处，即数据分配到哪个或哪些站点存储对用户是透明的。</p>
+<h3 id="局部映像透明性（逻辑透明"><a href="#局部映像透明性（逻辑透明" class="headerlink" title="局部映像透明性（逻辑透明)"></a>局部映像透明性（逻辑透明)</h3><p>​	是最低层次的透明性，该透明性提供数据到局部数据库的映像，即用户不必关心局部DBMS支持哪种数据模型、使用哪种数据操纵语言，数据模型和操纵语言的转换是由系统完成的。因此，局部映像透明性对异构型和同构异质的分布式数据库系统是非常重要的。</p>
+<h2 id="数据库连接"><a href="#数据库连接" class="headerlink" title="数据库连接"></a>数据库连接</h2><h3 id="笛卡尔积-符号是-（×）"><a href="#笛卡尔积-符号是-（×）" class="headerlink" title="笛卡尔积: 符号是 （×）"></a>笛卡尔积: 符号是 （×）</h3><p>​	做乘法 比如 R 表有4条元组 S表也有4条元组 别别将R表中的一条 与 S中的4条相连接 最后结果有16条元组（元组即为一行的记录）</p>
+<h3 id="等值连接-符号是（-x3D-）"><a href="#等值连接-符号是（-x3D-）" class="headerlink" title="等值连接 符号是（&#x3D;）"></a>等值连接 符号是（&#x3D;）</h3><p>​	在R表和S表中 找到相同属性，值相同的元组，把他们连接在一起，相同的属性用R.A 和 S.A表示 不去重</p>
+<h3 id="自然连接-符号是（⋈）"><a href="#自然连接-符号是（⋈）" class="headerlink" title="自然连接 符号是（⋈）"></a>自然连接 符号是（<code>⋈</code>）</h3><p>​	在R表和S表中 找到相同属性，值相同的元组，把他们连接在一起，相同的属性只出现一次， 去重</p>
+</li>
+<li><h2 id="二叉树的三种遍历"><a href="#二叉树的三种遍历" class="headerlink" title="二叉树的三种遍历"></a>二叉树的三种遍历</h2><pre><code>### 先序遍历
 </code></pre>
-<p>node -v    #查看node版本<br>npm -v    #查看npm版本<br>npm install -g cnpm –registry=<a target="_blank" rel="noopener" href="http://registry.npm.taobao.org/">http://registry.npm.taobao.org</a>    #安装淘宝的cnpm 管理器<br>cnpm -v    #查看cnpm版本<br>cnpm install -g hexo-cli    #安装hexo框架<br>hexo -v    #查看hexo版本<br>mkdir blog    #创建blog目录<br>cd blog     #进入blog目录<br>sudo hexo init     #生成博客 初始化博客<br>hexo s    #启动本地博客服务<br><a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000/</a>    #本地访问地址<br>hexo n “我的第一篇文章” #创建新的文章<br>#返回blog目录<br>hexo clean #清理<br>hexo g #生成<br>#Github创建一个新的仓库 YourGithubName.github.io<br>cnpm install –save hexo-deployer-git #在blog目录下安装git部署插件</p>
-<hr>
-<h2 id="配置-config-yml"><a href="#配置-config-yml" class="headerlink" title="#配置_config.yml "></a>#配置_config.yml </h2><pre><code># Deployment
-## Docs: https://hexo.io/docs/deployment.html
-deploy:
-      type: git
-     repo: https://github.com/YourGithubName/YourGithubName.github.io.git
-      branch: master
-</code></pre>
-<hr>
-<p>hexo d    #部署到Github仓库里<br><a target="_blank" rel="noopener" href="https://yourgithubname.github.io/">https://YourGithubName.github.io/</a>  #访问这个地址可以查看博客</p>
-<p> git clone <a target="_blank" rel="noopener" href="https://github.com/litten/hexo-theme-yilia.git">https://github.com/litten/hexo-theme-yilia.git</a> themes/yilia  #下载yilia主题到本地</p>
-<p>#修改hexo根目录下的 _config.yml 文件 ： theme: yilia</p>
-<p>hexo c    #清理一下<br>hexo g    #生成<br>hexo d    #部署到远程Github仓库<br><a target="_blank" rel="noopener" href="https://yourgithubname.github.io/">https://YourGithubName.github.io/</a>  #查看博客</p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Yb411a7ty/?spm_id_from=333.337.search-card.all.click&amp;vd_source=38daedea95d8546096eafc07e207a8e2">https://www.bilibili.com/video/BV1Yb411a7ty/?spm_id_from=333.337.search-card.all.click&amp;vd_source=38daedea95d8546096eafc07e207a8e2</a></p>
+<p>​		根左右</p>
+<h3 id="中序"><a href="#中序" class="headerlink" title="中序"></a>中序</h3><p>​		左根右</p>
+<h3 id="后续遍历"><a href="#后续遍历" class="headerlink" title="后续遍历"></a>后续遍历</h3><p>​		左右根</p>
+</li>
+<li><p>什么是二叉树？什么是有序二叉树？</p>
+<p>二叉树（binary tree）是指树中节点的度不大于2的有序树，它是一种最简单且最重要的树。二叉树的递归定义为：二叉树是一棵空树，或者是一棵由一个根节点和两棵互不相交的，分别称作根的左子树和右子树组成的非空树；左子树和右子树又同样都是二叉树 。 </p>
+<p><strong>有序二叉树，就是左子树上的数值小于树根上的值，树根的值小于右子树的值。</strong></p>
+</li>
+<li><p>使用ipconfig&#x2F;release命令可以释放当前主机自动获取的ip地址</p>
+</li>
+<li><p>A&#x2F;D  A是模拟信号 , D 是数字信号  所以是 模拟信号转数字信号 反过来 一样</p>
+</li>
+<li><p>GIF视频格式的图像分辨率是352*288</p>
+</li>
+<li><p>全相连映射 主存任意一块装入Cache中任意位置，只有装满了才需要替换</p>
+</li>
+<li><p>直接映射 ： 将主存中的序号 % Cache 的长度（从0开始）映射到Cache对应的位置</p>
+</li>
+<li><p>组相连映射 ：将主存中的序号 % Cache分的组的数量 再 映射到对应的组中 </p>
+</li>
+<li><p>McCabe 复杂度计算<img src="E:\Blogger\blog\source_posts\笔记.assets\image-20230505165042939.png" alt="image-20230505165042939"></p>
+<p>也可以数图中闭合的圆的个数再+1</p>
+</li>
+<li><p>DMA控制外设和主存之间的数据传送，无须CPU的干预。</p>
+</li>
+<li><p>SMTP传输的邮件报文采用ASCII格式</p>
+</li>
+<li><p>高级语言通过解释器转化成为中间代码的表达形式有语法树，后缀式，三地址代码</p>
+</li>
+<li><p>数据流图建模应当遵循自顶向下，从抽象到具体</p>
+</li>
+<li><p>极限编程的12个最佳实践：<strong>现场客户</strong> <strong>代码规范</strong> <strong>每周40小时工作制</strong> <strong>计划博弈</strong> <strong>系统隐喻</strong> <strong>简单设计</strong> <strong>测试驱动</strong> <strong>代码重构</strong> <strong>成对编程</strong> <strong>集体代码所有制</strong> <strong>持续集成</strong> <strong>小型发布</strong> </p>
+</li>
+<li><p>软件项目开发成本估算模型中，IBM模型和基本COCOMO模型是静态单变量模型</p>
+</li>
+<li><p>显示器像素点距规格中 点距越小，分辨率越高</p>
+</li>
+<li><p>用于系统开发人员与项目管理人员在项目期内进行沟通的文档主要有系统开发文档，包括工作任务分解表，PERT图，甘特图，和预算分配表等</p>
+</li>
+</ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/04/19/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E6%96%87/" data-id="clgtagyu30004jgw87sj8c6xd" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/05/05/%E7%AC%94%E8%AE%B0/" data-id="clhluf94j0009xsw8hf5basnq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -252,47 +431,68 @@ deploy:
 
 
   
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-数据库范式" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2023/04/19/hello-world/" class="article-date">
-  <time datetime="2023-04-19T12:47:54.078Z" itemprop="datePublished">2023-04-19</time>
+    <a href="/2023/05/04/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%8C%83%E5%BC%8F/" class="article-date">
+  <time datetime="2023-05-04T02:23:31.641Z" itemprop="datePublished">2023-05-04</time>
 </a>
     
   </div>
   <div class="article-inner">
     
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/04/19/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-<p>hexo g<br>hexo s<br>hexo d</p>
+        <h1 id="数据库范式"><a href="#数据库范式" class="headerlink" title="数据库范式"></a>数据库范式</h1><h2 id="关键码"><a href="#关键码" class="headerlink" title="关键码"></a>关键码</h2><ol>
+<li><p>超键：在关系中能唯一标识元组的属性或属性集称为关键模式的超键。(既至少包含一个候选键的属性集)</p>
+</li>
+<li><p>候选键：不含有多余属性的超键称为候选键。也就是在候选键中在删除属性就不是键了。(id等唯一且可以确定身份)</p>
+</li>
+<li><p>主键：用户选作元组标识的候选键称为主键。一般不加说明，键就是指主键。(用户选择的候选键)</p>
+</li>
+<li><p>外键：如果模式R中属性K是其他模式的主键，那么K在模式R中称为外键。(另一张表的主键，在这张表称为外键)</p>
+</li>
+<li><p>主属性: 所有候选键的集合</p>
+</li>
+</ol>
+<h2 id="完全依赖、部分依赖、传递依赖"><a href="#完全依赖、部分依赖、传递依赖" class="headerlink" title="完全依赖、部分依赖、传递依赖"></a>完全依赖、部分依赖、传递依赖</h2><h3 id="部分函数依赖：存在X→Y，若X’是X的真子集，存在X’→Y"><a href="#部分函数依赖：存在X→Y，若X’是X的真子集，存在X’→Y" class="headerlink" title="部分函数依赖：存在X→Y，若X’是X的真子集，存在X’→Y"></a>部分函数依赖：存在X→Y，若X’是X的真子集，存在X’→Y</h3><h3 id="完全函数依赖：存在X→Y，若X’是X的真子集，不存在X’→Y"><a href="#完全函数依赖：存在X→Y，若X’是X的真子集，不存在X’→Y" class="headerlink" title="完全函数依赖：存在X→Y，若X’是X的真子集，不存在X’→Y"></a>完全函数依赖：存在X→Y，若X’是X的真子集，不存在X’→Y</h3><h3 id="传递函数依赖：因为-X-gt-Y-Y-gt-Z-所以-X-gt-Z"><a href="#传递函数依赖：因为-X-gt-Y-Y-gt-Z-所以-X-gt-Z" class="headerlink" title="传递函数依赖：因为 X -&gt; Y, Y -&gt; Z, 所以 X -&gt; Z"></a>传递函数依赖：因为 X -&gt; Y, Y -&gt; Z, 所以 X -&gt; Z</h3><h2 id="范式"><a href="#范式" class="headerlink" title="范式"></a>范式</h2><pre><code> 1. 1NF (关系中的每一个元素都不可以再分，例如 一本书的作者有两个 ，需要将他们拆开分成 两列)
+ 2. 2NF (非主属性部分依赖于主属性, 既非候选键只依赖候选键中的一个属性, 这个时候就要拆表。 例如：歌曲名称和歌手可以组成候选键 经纪公司是非候选键 经纪公司 依赖于歌手 但是不依赖于 歌曲名称 )
+ 3. 3NF (表中的所有数据元素不但要能唯一的被主关键字所标识，而且他们之间还要相互独立，不存在其他的函数关系，既在2NF的基础上消除 传递函数依赖)
+ 4. BCNF 消除主属性对主键的部分依赖和传递依赖
+ 5. 4NF 消除表中的多值依赖(例如 所属专辑 可以确定发表时间 和 专辑类型 但是 发表时间 和 专辑类型 之间并没有联系 需要将他们拆表 分成 所属专辑，发表时间 和 所属专辑，专辑类型 两张表)
+</code></pre>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/04/19/hello-world/" data-id="clgtagyud0006jgw85nboh6pu" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/05/04/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%8C%83%E5%BC%8F/" data-id="clhluf94d0004xsw8f9jg0i1s" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-java反射" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2023/04/24/java%E5%8F%8D%E5%B0%84/" class="article-date">
+  <time datetime="2023-04-24T07:11:38.871Z" itemprop="datePublished">2023-04-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="java-反射"><a href="#java-反射" class="headerlink" title="java 反射"></a>java 反射</h1><h2 id="反射介绍"><a href="#反射介绍" class="headerlink" title="反射介绍"></a>反射介绍</h2><p><img src="E:\Blogger\blog\图片资源\image-20230424150706394.png" alt="image-20230424150706394"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/04/24/java%E5%8F%8D%E5%B0%84/" data-id="clhluf9450000xsw84z5u1c94" class="article-share-link">Share</a>
       
       
     </footer>
@@ -303,6 +503,11 @@ deploy:
 
   
 
+
+  <nav id="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+  </nav>
 
 </section>
         
@@ -320,7 +525,7 @@ deploy:
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li></ul>
     </div>
   </div>
 
@@ -333,23 +538,23 @@ deploy:
       <ul>
         
           <li>
-            <a href="/2023/04/23/%E6%B5%8B%E8%AF%95/">(no title)</a>
+            <a href="/2023/05/10/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%E3%80%81%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9%E3%80%81%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF/">(no title)</a>
           </li>
         
           <li>
-            <a href="/2023/04/23/Stream%E6%B5%81/">Stream流</a>
+            <a href="/2023/05/09/StrUtil%20%E5%92%8C%20Beanutils%20%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/">(no title)</a>
           </li>
         
           <li>
-            <a href="/2023/04/20/SSM-%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F/">SSM 依赖注入的三种方式</a>
+            <a href="/2023/05/09/@Resource%20%E5%92%8C%20@Autowired%20%E7%9A%84%E5%8C%BA%E5%88%AB/">(no title)</a>
           </li>
         
           <li>
-            <a href="/2023/04/19/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E6%96%87/">我的第一篇博文</a>
+            <a href="/2023/05/09/%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95/">(no title)</a>
           </li>
         
           <li>
-            <a href="/2023/04/19/hello-world/">Hello World</a>
+            <a href="/2023/05/09/ER%E5%9B%BE/">(no title)</a>
           </li>
         
       </ul>

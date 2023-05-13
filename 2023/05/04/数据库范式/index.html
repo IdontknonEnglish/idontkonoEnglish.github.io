@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="数据库范式关键码 超键：在关系中能唯一标识元组的属性或属性集称为关键模式的超键。(既至少包含一个候选键的属性集)  候选键：不含有多余属性的超键称为候选键。也就是在候选键中在删除属性就不是键了。(id等唯一且可以确定身份)  主键：用户选作元组标识的候选键称为主键。一般不加说明，键就是指主键。(用户选择的候选键)  外键：如果模式R中属性K是其他模式的主键，那么K在模式R中称为外键。(另一张表的主">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2023/05/04/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%8C%83%E5%BC%8F/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="数据库范式关键码 超键：在关系中能唯一标识元组的属性或属性集称为关键模式的超键。(既至少包含一个候选键的属性集)  候选键：不含有多余属性的超键称为候选键。也就是在候选键中在删除属性就不是键了。(id等唯一且可以确定身份)  主键：用户选作元组标识的候选键称为主键。一般不加说明，键就是指主键。(用户选择的候选键)  外键：如果模式R中属性K是其他模式的主键，那么K在模式R中称为外键。(另一张表的主">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-05-04T02:23:31.641Z">
+<meta property="article:modified_time" content="2023-05-04T02:23:34.091Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-数据库范式" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2023/05/04/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%8C%83%E5%BC%8F/" class="article-date">
+  <time datetime="2023-05-04T02:23:31.641Z" itemprop="datePublished">2023-05-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="数据库范式"><a href="#数据库范式" class="headerlink" title="数据库范式"></a>数据库范式</h1><h2 id="关键码"><a href="#关键码" class="headerlink" title="关键码"></a>关键码</h2><ol>
+<li><p>超键：在关系中能唯一标识元组的属性或属性集称为关键模式的超键。(既至少包含一个候选键的属性集)</p>
+</li>
+<li><p>候选键：不含有多余属性的超键称为候选键。也就是在候选键中在删除属性就不是键了。(id等唯一且可以确定身份)</p>
+</li>
+<li><p>主键：用户选作元组标识的候选键称为主键。一般不加说明，键就是指主键。(用户选择的候选键)</p>
+</li>
+<li><p>外键：如果模式R中属性K是其他模式的主键，那么K在模式R中称为外键。(另一张表的主键，在这张表称为外键)</p>
+</li>
+<li><p>主属性: 所有候选键的集合</p>
+</li>
+</ol>
+<h2 id="完全依赖、部分依赖、传递依赖"><a href="#完全依赖、部分依赖、传递依赖" class="headerlink" title="完全依赖、部分依赖、传递依赖"></a>完全依赖、部分依赖、传递依赖</h2><h3 id="部分函数依赖：存在X→Y，若X’是X的真子集，存在X’→Y"><a href="#部分函数依赖：存在X→Y，若X’是X的真子集，存在X’→Y" class="headerlink" title="部分函数依赖：存在X→Y，若X’是X的真子集，存在X’→Y"></a>部分函数依赖：存在X→Y，若X’是X的真子集，存在X’→Y</h3><h3 id="完全函数依赖：存在X→Y，若X’是X的真子集，不存在X’→Y"><a href="#完全函数依赖：存在X→Y，若X’是X的真子集，不存在X’→Y" class="headerlink" title="完全函数依赖：存在X→Y，若X’是X的真子集，不存在X’→Y"></a>完全函数依赖：存在X→Y，若X’是X的真子集，不存在X’→Y</h3><h3 id="传递函数依赖：因为-X-gt-Y-Y-gt-Z-所以-X-gt-Z"><a href="#传递函数依赖：因为-X-gt-Y-Y-gt-Z-所以-X-gt-Z" class="headerlink" title="传递函数依赖：因为 X -&gt; Y, Y -&gt; Z, 所以 X -&gt; Z"></a>传递函数依赖：因为 X -&gt; Y, Y -&gt; Z, 所以 X -&gt; Z</h3><h2 id="范式"><a href="#范式" class="headerlink" title="范式"></a>范式</h2><pre><code> 1. 1NF (关系中的每一个元素都不可以再分，例如 一本书的作者有两个 ，需要将他们拆开分成 两列)
+ 2. 2NF (非主属性部分依赖于主属性, 既非候选键只依赖候选键中的一个属性, 这个时候就要拆表。 例如：歌曲名称和歌手可以组成候选键 经纪公司是非候选键 经纪公司 依赖于歌手 但是不依赖于 歌曲名称 )
+ 3. 3NF (表中的所有数据元素不但要能唯一的被主关键字所标识，而且他们之间还要相互独立，不存在其他的函数关系，既在2NF的基础上消除 传递函数依赖)
+ 4. BCNF 消除主属性对主键的部分依赖和传递依赖
+ 5. 4NF 消除表中的多值依赖(例如 所属专辑 可以确定发表时间 和 专辑类型 但是 发表时间 和 专辑类型 之间并没有联系 需要将他们拆表 分成 所属专辑，发表时间 和 所属专辑，专辑类型 两张表)
+</code></pre>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/05/04/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%8C%83%E5%BC%8F/" data-id="clhluf94d0004xsw8f9jg0i1s" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/05/05/%E7%AC%94%E8%AE%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/04/24/java%E5%8F%8D%E5%B0%84/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/05/10/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%E3%80%81%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9%E3%80%81%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/09/StrUtil%20%E5%92%8C%20Beanutils%20%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/09/@Resource%20%E5%92%8C%20@Autowired%20%E7%9A%84%E5%8C%BA%E5%88%AB/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/09/%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/09/ER%E5%9B%BE/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
