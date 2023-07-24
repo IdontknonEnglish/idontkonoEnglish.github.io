@@ -1,83 +1,91 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="" />
+    <meta name="hexo-theme-A4" content="v1.7.0" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Hexo | </title>
 
-  
-  <title>Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Eureka 和 Nacos 使用的区别，以及为什么需要他们为什么需要 注册中心在微服务中 需要把 服务拆成多个很小的模块 名字叫微服务各个微服务之间的交互通过http 来访问调用该服务因为服务的ip地址是会改变的，所以在代码中就不能固定写死，需要通过一个注册中心来动态分配注册中心会根据负载均衡规则来选择适合的服务器处理 请求。每一个服务上线时都需要向注册中心 注册服务信息，包括服务名，ip地址，">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/2023/05/24/eureka%20%E5%92%8C%20nacos%20%E4%BD%BF%E7%94%A8%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%8C%E4%BB%A5%E5%8F%8A%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E4%BB%96%E4%BB%AC/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Eureka 和 Nacos 使用的区别，以及为什么需要他们为什么需要 注册中心在微服务中 需要把 服务拆成多个很小的模块 名字叫微服务各个微服务之间的交互通过http 来访问调用该服务因为服务的ip地址是会改变的，所以在代码中就不能固定写死，需要通过一个注册中心来动态分配注册中心会根据负载均衡规则来选择适合的服务器处理 请求。每一个服务上线时都需要向注册中心 注册服务信息，包括服务名，ip地址，">
-<meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-05-24T04:00:52.954Z">
-<meta property="article:modified_time" content="2023-05-24T10:39:45.501Z">
-<meta property="article:author" content="John Doe">
-<meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
 <link rel="stylesheet" href="/css/style.css">
 
 <meta name="generator" content="Hexo 5.4.2"></head>
+    
+    <body>
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Hexo</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
 
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            
+        </div>
       
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-eureka 和 nacos 使用的区别，以及为什么需要他们" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2023/05/24/eureka%20%E5%92%8C%20nacos%20%E4%BD%BF%E7%94%A8%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%8C%E4%BB%A5%E5%8F%8A%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E4%BB%96%E4%BB%AC/" class="article-date">
-  <time datetime="2023-05-24T04:00:52.954Z" itemprop="datePublished">2023-05-24</time>
-</a>
     
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
+
+    <div class="post-md">
+        
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Eureka-%E5%92%8C-Nacos-%E4%BD%BF%E7%94%A8%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%8C%E4%BB%A5%E5%8F%8A%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E4%BB%96%E4%BB%AC"><span class="post-toc-text">Eureka 和 Nacos 使用的区别，以及为什么需要他们</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81-%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83"><span class="post-toc-text">为什么需要 注册中心</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%9C%A8%E5%BE%AE%E6%9C%8D%E5%8A%A1%E4%B8%AD-%E9%9C%80%E8%A6%81%E6%8A%8A-%E6%9C%8D%E5%8A%A1%E6%8B%86%E6%88%90%E5%A4%9A%E4%B8%AA%E5%BE%88%E5%B0%8F%E7%9A%84%E6%A8%A1%E5%9D%97-%E5%90%8D%E5%AD%97%E5%8F%AB%E5%BE%AE%E6%9C%8D%E5%8A%A1"><span class="post-toc-text">在微服务中 需要把 服务拆成多个很小的模块 名字叫微服务</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%90%84%E4%B8%AA%E5%BE%AE%E6%9C%8D%E5%8A%A1%E4%B9%8B%E9%97%B4%E7%9A%84%E4%BA%A4%E4%BA%92%E9%80%9A%E8%BF%87http-%E6%9D%A5%E8%AE%BF%E9%97%AE%E8%B0%83%E7%94%A8%E8%AF%A5%E6%9C%8D%E5%8A%A1"><span class="post-toc-text">各个微服务之间的交互通过http 来访问调用该服务</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%9B%A0%E4%B8%BA%E6%9C%8D%E5%8A%A1%E7%9A%84ip%E5%9C%B0%E5%9D%80%E6%98%AF%E4%BC%9A%E6%94%B9%E5%8F%98%E7%9A%84%EF%BC%8C%E6%89%80%E4%BB%A5%E5%9C%A8%E4%BB%A3%E7%A0%81%E4%B8%AD%E5%B0%B1%E4%B8%8D%E8%83%BD%E5%9B%BA%E5%AE%9A%E5%86%99%E6%AD%BB%EF%BC%8C%E9%9C%80%E8%A6%81%E9%80%9A%E8%BF%87%E4%B8%80%E4%B8%AA%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E6%9D%A5%E5%8A%A8%E6%80%81%E5%88%86%E9%85%8D"><span class="post-toc-text">因为服务的ip地址是会改变的，所以在代码中就不能固定写死，需要通过一个注册中心来动态分配</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E4%BC%9A%E6%A0%B9%E6%8D%AE%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E8%A7%84%E5%88%99%E6%9D%A5%E9%80%89%E6%8B%A9%E9%80%82%E5%90%88%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%A4%84%E7%90%86-%E8%AF%B7%E6%B1%82%E3%80%82"><span class="post-toc-text">注册中心会根据负载均衡规则来选择适合的服务器处理 请求。</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%AF%8F%E4%B8%80%E4%B8%AA%E6%9C%8D%E5%8A%A1%E4%B8%8A%E7%BA%BF%E6%97%B6%E9%83%BD%E9%9C%80%E8%A6%81%E5%90%91%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83-%E6%B3%A8%E5%86%8C%E6%9C%8D%E5%8A%A1%E4%BF%A1%E6%81%AF%EF%BC%8C%E5%8C%85%E6%8B%AC%E6%9C%8D%E5%8A%A1%E5%90%8D%EF%BC%8Cip%E5%9C%B0%E5%9D%80%EF%BC%8C%E7%AD%89%E5%BE%85"><span class="post-toc-text">每一个服务上线时都需要向注册中心 注册服务信息，包括服务名，ip地址，等待</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Nacos-%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="post-toc-text">Nacos 的使用方法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%9C%A8%E4%B8%BB%E6%A8%A1%E5%9D%97-%E5%BC%95%E5%85%A5%E4%BE%9D%E8%B5%96"><span class="post-toc-text">在主模块 引入依赖</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%9C%A8application-yml-%E4%B8%AD%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%90%8D%E5%AD%97%E5%92%8Cnacos%E7%9A%84%E5%9C%B0%E5%9D%80%E7%AB%AF%E5%8F%A3"><span class="post-toc-text">在application.yml 中配置服务的名字和nacos的地址端口</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%89%BE%E4%B8%80%E4%B8%AA%E5%8F%AF%E4%BB%A5%E6%B3%A8%E5%85%A5bean%E7%9A%84%E7%B1%BB%EF%BC%8C%E4%BE%8B%E5%A6%82%E5%90%AF%E5%8A%A8%E7%B1%BB%EF%BC%8C%E6%B3%A8%E5%85%A5RestTemplate"><span class="post-toc-text">找一个可以注入bean的类，例如启动类，注入RestTemplate</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#eureka-%E4%B8%8E-nacos%E7%B1%BB%E4%BC%BC"><span class="post-toc-text">eureka 与 nacos类似</span></a></li></ol></li></ol>
+        
         <h1 id="Eureka-和-Nacos-使用的区别，以及为什么需要他们"><a href="#Eureka-和-Nacos-使用的区别，以及为什么需要他们" class="headerlink" title="Eureka 和 Nacos 使用的区别，以及为什么需要他们"></a>Eureka 和 Nacos 使用的区别，以及为什么需要他们</h1><h2 id="为什么需要-注册中心"><a href="#为什么需要-注册中心" class="headerlink" title="为什么需要 注册中心"></a>为什么需要 注册中心</h2><h3 id="在微服务中-需要把-服务拆成多个很小的模块-名字叫微服务"><a href="#在微服务中-需要把-服务拆成多个很小的模块-名字叫微服务" class="headerlink" title="在微服务中 需要把 服务拆成多个很小的模块 名字叫微服务"></a>在微服务中 需要把 服务拆成多个很小的模块 名字叫微服务</h3><h3 id="各个微服务之间的交互通过http-来访问调用该服务"><a href="#各个微服务之间的交互通过http-来访问调用该服务" class="headerlink" title="各个微服务之间的交互通过http 来访问调用该服务"></a>各个微服务之间的交互通过http 来访问调用该服务</h3><h3 id="因为服务的ip地址是会改变的，所以在代码中就不能固定写死，需要通过一个注册中心来动态分配"><a href="#因为服务的ip地址是会改变的，所以在代码中就不能固定写死，需要通过一个注册中心来动态分配" class="headerlink" title="因为服务的ip地址是会改变的，所以在代码中就不能固定写死，需要通过一个注册中心来动态分配"></a>因为服务的ip地址是会改变的，所以在代码中就不能固定写死，需要通过一个注册中心来动态分配</h3><h3 id="注册中心会根据负载均衡规则来选择适合的服务器处理-请求。"><a href="#注册中心会根据负载均衡规则来选择适合的服务器处理-请求。" class="headerlink" title="注册中心会根据负载均衡规则来选择适合的服务器处理 请求。"></a>注册中心会根据负载均衡规则来选择适合的服务器处理 请求。</h3><h3 id="每一个服务上线时都需要向注册中心-注册服务信息，包括服务名，ip地址，等待"><a href="#每一个服务上线时都需要向注册中心-注册服务信息，包括服务名，ip地址，等待" class="headerlink" title="每一个服务上线时都需要向注册中心 注册服务信息，包括服务名，ip地址，等待"></a>每一个服务上线时都需要向注册中心 注册服务信息，包括服务名，ip地址，等待</h3><h2 id="Nacos-的使用方法"><a href="#Nacos-的使用方法" class="headerlink" title="Nacos 的使用方法"></a>Nacos 的使用方法</h2><h3 id="在主模块-引入依赖"><a href="#在主模块-引入依赖" class="headerlink" title="在主模块 引入依赖"></a>在主模块 引入依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- springCloud-alibaba --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-alibaba-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="在application-yml-中配置服务的名字和nacos的地址端口"><a href="#在application-yml-中配置服务的名字和nacos的地址端口" class="headerlink" title="在application.yml 中配置服务的名字和nacos的地址端口"></a>在application.yml 中配置服务的名字和nacos的地址端口</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">userserver</span> <span class="comment"># user的服务名称</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">server-addr:</span> <span class="string">localhost:8848</span> <span class="comment"># nacos 地址端口号</span></span><br><span class="line">      </span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">cluster-name:</span> <span class="string">JIQUN</span> <span class="comment"># 集群名称，不写就是DEFAULT</span></span><br><span class="line">        <span class="comment">#namespace: 命名空间的id</span></span><br><span class="line">        <span class="comment">#ephemeral: false (默认为true，表示的是，是否是临时实例)</span></span><br><span class="line">        </span><br></pre></td></tr></table></figure>
@@ -85,130 +93,69 @@
 <h3 id="找一个可以注入bean的类，例如启动类，注入RestTemplate"><a href="#找一个可以注入bean的类，例如启动类，注入RestTemplate" class="headerlink" title="找一个可以注入bean的类，例如启动类，注入RestTemplate"></a>找一个可以注入bean的类，例如启动类，注入RestTemplate</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 创建RestTemplate 并注入到 Spring容器中</span></span><br><span class="line"><span class="comment"> * 用来发送rest风格的HTTP</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="meta">@LoadBalanced</span></span><br><span class="line"><span class="keyword">public</span> RestTemplate <span class="title function_">restTemplate</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">RestTemplate</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="eureka-与-nacos类似"><a href="#eureka-与-nacos类似" class="headerlink" title="eureka 与 nacos类似"></a>eureka 与 nacos类似</h2>
-      
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/05/24/eureka%20%E5%92%8C%20nacos%20%E4%BD%BF%E7%94%A8%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%8C%E4%BB%A5%E5%8F%8A%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E4%BB%96%E4%BB%AC/" data-id="clkgnbeue000cucw8ee9gcn1v" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2023/05/24/%E4%B8%BA%E4%BB%80%E4%B9%88%E9%87%8D%E5%86%99equals%EF%BC%88%EF%BC%89%E6%96%B9%E6%B3%95%EF%BC%8C%E5%B0%B1%E4%B8%80%E5%AE%9A%E8%A6%81%E9%87%8D%E5%86%99hashCode%EF%BC%88%EF%BC%89%E6%96%B9%E6%B3%95%EF%BC%9F/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
+
+    <div class="post-meta">
+        <i>
         
-          (no title)
+            <span>2023-05-24</span>
+            
+            
+             
         
-      </div>
-    </a>
-  
-  
-    <a href="/2023/05/20/RESTful%20%E9%A3%8E%E6%A0%BC/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title"></div>
-    </a>
-  
-</nav>
-
-  
-</article>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li></ul>
+        </i>
     </div>
-  </div>
-
-
-  
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
         
-          <li>
-            <a href="/2023/07/12/Vue%203%20%E8%AF%AD%E6%B3%95/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2023/07/10/Git%20%E6%93%8D%E4%BD%9C/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2023/07/05/Vue2%20%E5%B8%B8%E7%94%A8%E6%A0%87%E7%AD%BE/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2023/06/29/%E5%BE%85%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2023/06/19/Swagger/">(no title)</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
 
-  
-</aside>
+     
+</div>
+
+
+
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+            © 1949-2023 China 
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span>🌊看过大海的人不会忘记海的广阔🌊</span>
+            
+                <span class="footer-last-span-right"><i>本站由<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/index.html">Hexo</a>驱动｜使用<a target="_blank" rel="noopener" href="https://github.com/HiNinoJay/hexo-theme-A4">Hexo-theme-A4</a>主题</i></span>
+            
+    
+</div>
+
+
+    
         
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2023 John Doe<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
     
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
-
-  
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-
-  
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-  </div>
-</body>
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+                </div>
+            
+    </body>
 </html>
