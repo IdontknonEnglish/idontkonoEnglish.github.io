@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="MySQL 常用语法比较运算符DISTINCT 去重BETWEEN X AND Y  在 X 到 Y之间 包括 X和YIN(…)  括号中的值满足一个即可LIKE  _表示一个字符 %表示任意个字符 可以配合任意字符 例如%X 表示身份证末尾为XIS NULL   是NULL逻辑运算符AND &amp;&amp;OR ||NOT !聚合函数(放在select 后面 例如 select count(">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2023/05/18/MySQL%20%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="MySQL 常用语法比较运算符DISTINCT 去重BETWEEN X AND Y  在 X 到 Y之间 包括 X和YIN(…)  括号中的值满足一个即可LIKE  _表示一个字符 %表示任意个字符 可以配合任意字符 例如%X 表示身份证末尾为XIS NULL   是NULL逻辑运算符AND &amp;&amp;OR ||NOT !聚合函数(放在select 后面 例如 select count(">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-05-18T07:39:41.898Z">
+<meta property="article:modified_time" content="2023-06-08T02:41:08.038Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-MySQL 常用语法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2023/05/18/MySQL%20%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95/" class="article-date">
+  <time datetime="2023-05-18T07:39:41.898Z" itemprop="datePublished">2023-05-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="MySQL-常用语法"><a href="#MySQL-常用语法" class="headerlink" title="MySQL 常用语法"></a>MySQL 常用语法</h1><h2 id="比较运算符"><a href="#比较运算符" class="headerlink" title="比较运算符"></a>比较运算符</h2><h3 id="DISTINCT-去重"><a href="#DISTINCT-去重" class="headerlink" title="DISTINCT 去重"></a>DISTINCT 去重</h3><h3 id="BETWEEN-X-AND-Y-在-X-到-Y之间-包括-X和Y"><a href="#BETWEEN-X-AND-Y-在-X-到-Y之间-包括-X和Y" class="headerlink" title="BETWEEN X AND Y  在 X 到 Y之间 包括 X和Y"></a>BETWEEN X AND Y  在 X 到 Y之间 包括 X和Y</h3><h3 id="IN-…-括号中的值满足一个即可"><a href="#IN-…-括号中的值满足一个即可" class="headerlink" title="IN(…)  括号中的值满足一个即可"></a>IN(…)  括号中的值满足一个即可</h3><h3 id="LIKE-表示一个字符-表示任意个字符-可以配合任意字符-例如-X-表示身份证末尾为X"><a href="#LIKE-表示一个字符-表示任意个字符-可以配合任意字符-例如-X-表示身份证末尾为X" class="headerlink" title="LIKE  _表示一个字符 %表示任意个字符 可以配合任意字符 例如%X 表示身份证末尾为X"></a>LIKE  _表示一个字符 %表示任意个字符 可以配合任意字符 例如%X 表示身份证末尾为X</h3><h3 id="IS-NULL-是NULL"><a href="#IS-NULL-是NULL" class="headerlink" title="IS NULL   是NULL"></a>IS NULL   是NULL</h3><h2 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h2><h3 id="AND-amp-amp"><a href="#AND-amp-amp" class="headerlink" title="AND &amp;&amp;"></a>AND &amp;&amp;</h3><h3 id="OR"><a href="#OR" class="headerlink" title="OR ||"></a>OR ||</h3><h3 id="NOT"><a href="#NOT" class="headerlink" title="NOT !"></a>NOT !</h3><h2 id="聚合函数-放在select-后面-例如-select-count"><a href="#聚合函数-放在select-后面-例如-select-count" class="headerlink" title="聚合函数(放在select 后面 例如 select count(*) )"></a>聚合函数(放在select 后面 例如 select count(*) )</h2><h3 id="count-统计数量"><a href="#count-统计数量" class="headerlink" title="count 统计数量"></a>count 统计数量</h3><h3 id="max-最大值"><a href="#max-最大值" class="headerlink" title="max 最大值"></a>max 最大值</h3><h3 id="min-最小值"><a href="#min-最小值" class="headerlink" title="min 最小值"></a>min 最小值</h3><h3 id="avg-平均值-avg-要求的字段-is-not-null-可以加条件也可以不加-，该字段所有值之和-除-字段-的数量-，不一定是用来求平均数。"><a href="#avg-平均值-avg-要求的字段-is-not-null-可以加条件也可以不加-，该字段所有值之和-除-字段-的数量-，不一定是用来求平均数。" class="headerlink" title="avg 平均值  avg(要求的字段  is not null) 可以加条件也可以不加 ，该字段所有值之和 除 字段 的数量  ，不一定是用来求平均数。"></a>avg 平均值  avg(要求的字段  is not null) 可以加条件也可以不加 ，该字段所有值之和 除 字段 的数量  ，不一定是用来求平均数。</h3><h3 id="sum-求和"><a href="#sum-求和" class="headerlink" title="sum 求和"></a>sum 求和</h3><h3 id="SELECT-ROUND-操作的数字-需要保留多少位小数"><a href="#SELECT-ROUND-操作的数字-需要保留多少位小数" class="headerlink" title="SELECT ROUND(操作的数字,  需要保留多少位小数);"></a>SELECT ROUND(操作的数字,  需要保留多少位小数);</h3><h3 id="datediff-大的日期-小的日期-两个日期之间相差多少天"><a href="#datediff-大的日期-小的日期-两个日期之间相差多少天" class="headerlink" title="datediff(大的日期 ,小的日期) 两个日期之间相差多少天"></a>datediff(大的日期 ,小的日期) 两个日期之间相差多少天</h3><h2 id="分组查询"><a href="#分组查询" class="headerlink" title="分组查询"></a>分组查询</h2><h3 id="GROUP-BY-分组字段名-HAVING-分组-后过滤条件"><a href="#GROUP-BY-分组字段名-HAVING-分组-后过滤条件" class="headerlink" title="GROUP BY 分组字段名 [ HAVING 分组 后过滤条件 ];"></a>GROUP BY 分组字段名 [ HAVING 分组 后过滤条件 ];</h3><h2 id="排序查询"><a href="#排序查询" class="headerlink" title="排序查询"></a>排序查询</h2><h3 id="ORDER-BY-字段1-排序方式1-字段2-排序方式2-默认排序方式是-ASC-升序-。-DESC-降序"><a href="#ORDER-BY-字段1-排序方式1-字段2-排序方式2-默认排序方式是-ASC-升序-。-DESC-降序" class="headerlink" title="ORDER BY  字段1 排序方式1 , 字段2 排序方式2      默认排序方式是 ASC 升序  。  DESC: 降序"></a>ORDER BY  字段1 排序方式1 , 字段2 排序方式2      默认排序方式是 ASC 升序  。  DESC: 降序</h3><h2 id="分页查询"><a href="#分页查询" class="headerlink" title="分页查询"></a>分页查询</h2><h3 id="SELECT-字段列表-FROM-表名-LIMIT-起始索引-查询记录数"><a href="#SELECT-字段列表-FROM-表名-LIMIT-起始索引-查询记录数" class="headerlink" title="SELECT 字段列表 FROM 表名 LIMIT 起始索引, 查询记录数 ;"></a>SELECT 字段列表 FROM 表名 LIMIT 起始索引, 查询记录数 ;</h3><h2 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h2><h3 id="连接没有条件就是笛卡尔积"><a href="#连接没有条件就是笛卡尔积" class="headerlink" title="连接没有条件就是笛卡尔积"></a><code>连接没有条件就是笛卡尔积</code></h3><h3 id="隐式内连接"><a href="#隐式内连接" class="headerlink" title="隐式内连接"></a>隐式内连接</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT 字段列表 FROM 表1 , 表2 WHERE 条件 ... </span><br></pre></td></tr></table></figure>
+
+<h3 id="显示内连接"><a href="#显示内连接" class="headerlink" title="显示内连接"></a>显示内连接</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT 字段列表 FROM 表1 [ INNER ] JOIN 表2 ON 连接条件 ... ;</span><br></pre></td></tr></table></figure>
+
+<h3 id="外连接"><a href="#外连接" class="headerlink" title="外连接"></a>外连接</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT 字段列表 FROM 表1 LEFT [ OUTER ] JOIN 表2 ON 条件 ... ;</span><br></pre></td></tr></table></figure>
+
+<h2 id="联合查询"><a href="#联合查询" class="headerlink" title="联合查询"></a>联合查询</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT 字段列表 FROM 表A ...</span><br><span class="line">UNION [ ALL ] * 加ALL 就不会去重复，不加会去重</span><br><span class="line">SELECT 字段列表 FROM 表B ....;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">select x,y,z,case</span><br><span class="line"> WHEN x + y &gt; z AND x + z &gt; y AND y + z &gt; x THEN &#x27;Yes&#x27;</span><br><span class="line">        ELSE &#x27;No&#x27;</span><br><span class="line">    END AS &#x27;triangle&#x27;</span><br><span class="line">from triangle;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="在使用HAVING子句时，需要注意以下几点："><a href="#在使用HAVING子句时，需要注意以下几点：" class="headerlink" title="在使用HAVING子句时，需要注意以下几点："></a>在使用HAVING子句时，需要注意以下几点：</h2><ol>
+<li>HAVING子句必须在GROUP BY子句之后使用，进行对分组的过滤。</li>
+<li>HAVING子句可以使用聚合函数，如SUM，AVG，COUNT等。</li>
+<li>在HAVING子句中，列名必须是在SELECT列表或GROUP BY子句中出现过的列名。如果列名没有在这些地方出现过，则会引发”Unknown column”错误。</li>
+<li>在GROUP BY子句中列出的列名需要在SELECT语句列表中使用，否则它们不会出现在结果集中。</li>
+<li>在SELECT语句列表中使用的列名必须是在FROM子句中的表或子查询中存在的列名，否则会引发”Unknown column”错误。</li>
+</ol>
+<p>最后，如果查询中使用了分组聚合函数（SUM、AVG、COUNT等），则必须使用GROUP BY子句指定在SELECT语句列表中的列名以进行GROUP BY分组，否则查询将不完整或者结果不正确。</p>
+<ul>
+<li><code>在SELECT子句中出现聚合函数时，那么不在聚合函数中的字段都要出现在GROUP BY子句中。</code></li>
+<li><code>GROUP BY子句是配合聚合函数使用的，如果SELECT子句中没有聚合函数，通常不写GROUP BY。</code></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">    id, name, grade,</span><br><span class="line">    <span class="keyword">CASE</span></span><br><span class="line">        <span class="keyword">WHEN</span> grade <span class="operator">&gt;=</span> <span class="number">90</span> <span class="keyword">THEN</span> <span class="string">&#x27;优秀&#x27;</span></span><br><span class="line">        <span class="keyword">WHEN</span> grade <span class="operator">&gt;=</span> <span class="number">80</span> <span class="keyword">THEN</span> <span class="string">&#x27;良好&#x27;</span></span><br><span class="line">        <span class="keyword">WHEN</span> grade <span class="operator">&gt;=</span> <span class="number">70</span> <span class="keyword">THEN</span> <span class="string">&#x27;中等&#x27;</span></span><br><span class="line">        <span class="keyword">WHEN</span> grade <span class="operator">&gt;=</span> <span class="number">60</span> <span class="keyword">THEN</span> <span class="string">&#x27;及格&#x27;</span></span><br><span class="line">        <span class="keyword">ELSE</span> <span class="string">&#x27;不及格&#x27;</span></span><br><span class="line">    <span class="keyword">END</span> <span class="keyword">AS</span> score_description</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">    students;</span><br></pre></td></tr></table></figure>
+
+<h2 id="CASE-WHEN-THEN-ELSE-END-语法"><a href="#CASE-WHEN-THEN-ELSE-END-语法" class="headerlink" title="CASE WHEN THEN ELSE END 语法"></a>CASE WHEN THEN ELSE END 语法</h2><p>CASE 相当于 swtich when 相当于 case ， else 表示 所有when不成立走的，end表示结束，必须写，后面可以加别名</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/05/18/MySQL%20%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95/" data-id="clkgnbeua0006ucw874715832" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/05/18/%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%9B%9B%E5%A4%A7%E7%89%B9%E6%80%A7/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/05/10/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%E3%80%81%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9%E3%80%81%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/07/12/Vue%203%20%E8%AF%AD%E6%B3%95/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/10/Git%20%E6%93%8D%E4%BD%9C/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/05/Vue2%20%E5%B8%B8%E7%94%A8%E6%A0%87%E7%AD%BE/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/06/29/%E5%BE%85%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/06/19/Swagger/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

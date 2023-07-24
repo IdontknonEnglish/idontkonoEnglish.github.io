@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="事务的四大特性原子性事务是不可分割的最小操作单元，要么全部成功，要么全部失败一致性事务完成时，必须使所有的数据都保持一致性隔离性数据库系统提供的隔离机制，保证事务在不受外部并发操作影响的独立环境下运行持久性事务一旦提交或回滚，它对数据库中数据的改变就是永久的并发事务问题脏读  ：一个事务读到另一个事务还没有提交的数据不可重复读  ：一个事务先后读取到同一条记录，但两次读取的数据不同，称之为不可重复">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2023/05/18/%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%9B%9B%E5%A4%A7%E7%89%B9%E6%80%A7/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="事务的四大特性原子性事务是不可分割的最小操作单元，要么全部成功，要么全部失败一致性事务完成时，必须使所有的数据都保持一致性隔离性数据库系统提供的隔离机制，保证事务在不受外部并发操作影响的独立环境下运行持久性事务一旦提交或回滚，它对数据库中数据的改变就是永久的并发事务问题脏读  ：一个事务读到另一个事务还没有提交的数据不可重复读  ：一个事务先后读取到同一条记录，但两次读取的数据不同，称之为不可重复">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="c:/Users/86187/AppData/Roaming/Typora/typora-user-images/image-20230518175554572.png">
+<meta property="article:published_time" content="2023-05-18T10:44:18.268Z">
+<meta property="article:modified_time" content="2023-06-05T09:14:16.962Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:/Users/86187/AppData/Roaming/Typora/typora-user-images/image-20230518175554572.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-事务的四大特性" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2023/05/18/%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%9B%9B%E5%A4%A7%E7%89%B9%E6%80%A7/" class="article-date">
+  <time datetime="2023-05-18T10:44:18.268Z" itemprop="datePublished">2023-05-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="事务的四大特性"><a href="#事务的四大特性" class="headerlink" title="事务的四大特性"></a>事务的四大特性</h1><h2 id="原子性"><a href="#原子性" class="headerlink" title="原子性"></a>原子性</h2><h3 id="事务是不可分割的最小操作单元，要么全部成功，要么全部失败"><a href="#事务是不可分割的最小操作单元，要么全部成功，要么全部失败" class="headerlink" title="事务是不可分割的最小操作单元，要么全部成功，要么全部失败"></a>事务是不可分割的最小操作单元，要么全部成功，要么全部失败</h3><h2 id="一致性"><a href="#一致性" class="headerlink" title="一致性"></a>一致性</h2><h3 id="事务完成时，必须使所有的数据都保持一致性"><a href="#事务完成时，必须使所有的数据都保持一致性" class="headerlink" title="事务完成时，必须使所有的数据都保持一致性"></a>事务完成时，必须使所有的数据都保持一致性</h3><h2 id="隔离性"><a href="#隔离性" class="headerlink" title="隔离性"></a>隔离性</h2><h3 id="数据库系统提供的隔离机制，保证事务在不受外部并发操作影响的独立环境下运行"><a href="#数据库系统提供的隔离机制，保证事务在不受外部并发操作影响的独立环境下运行" class="headerlink" title="数据库系统提供的隔离机制，保证事务在不受外部并发操作影响的独立环境下运行"></a>数据库系统提供的隔离机制，保证事务在不受外部并发操作影响的独立环境下运行</h3><h2 id="持久性"><a href="#持久性" class="headerlink" title="持久性"></a>持久性</h2><h3 id="事务一旦提交或回滚，它对数据库中数据的改变就是永久的"><a href="#事务一旦提交或回滚，它对数据库中数据的改变就是永久的" class="headerlink" title="事务一旦提交或回滚，它对数据库中数据的改变就是永久的"></a>事务一旦提交或回滚，它对数据库中数据的改变就是永久的</h3><h2 id="并发事务问题"><a href="#并发事务问题" class="headerlink" title="并发事务问题"></a>并发事务问题</h2><h3 id="脏读-：一个事务读到另一个事务还没有提交的数据"><a href="#脏读-：一个事务读到另一个事务还没有提交的数据" class="headerlink" title="脏读  ：一个事务读到另一个事务还没有提交的数据"></a>脏读  ：一个事务读到另一个事务还没有提交的数据</h3><h3 id="不可重复读-：一个事务先后读取到同一条记录，但两次读取的数据不同，称之为不可重复读"><a href="#不可重复读-：一个事务先后读取到同一条记录，但两次读取的数据不同，称之为不可重复读" class="headerlink" title="不可重复读  ：一个事务先后读取到同一条记录，但两次读取的数据不同，称之为不可重复读"></a>不可重复读  ：一个事务先后读取到同一条记录，但两次读取的数据不同，称之为不可重复读</h3><h3 id="幻读-：-一个事务按照条件查询数据时，没有对应的数据行，但是在插入数据时，又发现这行数据已经存在，好像出现了幻象。"><a href="#幻读-：-一个事务按照条件查询数据时，没有对应的数据行，但是在插入数据时，又发现这行数据已经存在，好像出现了幻象。" class="headerlink" title="幻读  ： 一个事务按照条件查询数据时，没有对应的数据行，但是在插入数据时，又发现这行数据已经存在，好像出现了幻象。"></a>幻读  ： 一个事务按照条件查询数据时，没有对应的数据行，但是在插入数据时，又发现这行数据已经存在，好像出现了幻象。</h3><h2 id="事务的隔离性"><a href="#事务的隔离性" class="headerlink" title="事务的隔离性"></a>事务的隔离性</h2><p><img src="C:\Users\86187\AppData\Roaming\Typora\typora-user-images\image-20230518175554572.png"></p>
+<h3 id="Read-uncommitted-：-读未提交"><a href="#Read-uncommitted-：-读未提交" class="headerlink" title="Read uncommitted ： 读未提交"></a>Read uncommitted ： 读未提交</h3><h3 id="Read-committed-：-读已提交"><a href="#Read-committed-：-读已提交" class="headerlink" title="Read committed   ： 读已提交"></a>Read committed   ： 读已提交</h3><h3 id="Repeatable-Read-Mysql默认-可重复读"><a href="#Repeatable-Read-Mysql默认-可重复读" class="headerlink" title="Repeatable Read(Mysql默认)  :  可重复读"></a>Repeatable Read(Mysql默认)  :  可重复读</h3><h3 id="Serializable-串行化"><a href="#Serializable-串行化" class="headerlink" title="Serializable   :   串行化"></a>Serializable   :   串行化</h3>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/05/18/%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%9B%9B%E5%A4%A7%E7%89%B9%E6%80%A7/" data-id="clkgnbeue000bucw8b4y9dx2s" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/05/20/RESTful%20%E9%A3%8E%E6%A0%BC/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/05/18/MySQL%20%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/07/12/Vue%203%20%E8%AF%AD%E6%B3%95/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/10/Git%20%E6%93%8D%E4%BD%9C/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/05/Vue2%20%E5%B8%B8%E7%94%A8%E6%A0%87%E7%AD%BE/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/06/29/%E5%BE%85%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/06/19/Swagger/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
